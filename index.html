@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anirudha Tripathy | Professional Accounting & Consulting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .hero-pattern {
+            background-color: #0f172a;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e293b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Chatbot Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .chat-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .typing-dot {
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        /* Writing Person Animation */
+        @keyframes write-action {
+            0% { transform: rotate(0deg) translate(0, 0); }
+            25% { transform: rotate(-5deg) translate(-2px, 2px); }
+            50% { transform: rotate(0deg) translate(0, 0); }
+            75% { transform: rotate(5deg) translate(2px, -2px); }
+            100% { transform: rotate(0deg) translate(0, 0); }
+        }
+
+        .writing-arm-group {
+            animation: write-action 0.8s infinite ease-in-out;
+            transform-origin: 240px 420px; /* Pivot near the wrist/paper contact */
+        }
+        
+        @keyframes paper-move {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-2px); }
+            100% { transform: translateX(0); }
+        }
+        
+        .animated-paper {
+            animation: paper-move 3s ease-in-out infinite;
+        }
+
+        /* Ticker Animation */
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .ticker-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+        }
+        .ticker-wrap:hover .ticker-content {
+            animation-play-state: paused;
+        }
+
+        /* Tab Active State */
+        .nav-btn.active {
+            color: #1e3a8a; /* blue-900 */
+            background-color: #f1f5f9; /* slate-100 */
+        }
+        
+        /* Fade transition for tabs */
+        .tab-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <!-- Navigation (TABS) -->
+    <nav class="fixed w-full bg-white/95 backdrop-blur-sm shadow-sm z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+                    <!-- Unique SVG Logo: Abacus Style -->
+                    <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center text-white shadow-md">
+                        <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="5" width="90" height="90" rx="8" stroke="white" stroke-width="6"/>
+                            <line x1="35" y1="5" x2="35" y2="95" stroke="white" stroke-width="2" stroke-opacity="0.5"/>
+                            <line x1="65" y1="5" x2="65" y2="95" stroke="white" stroke-width="2" stroke-opacity="0.5"/>
+                            <rect x="5" y="45" width="90" height="10" fill="white"/>
+                            <circle cx="35" cy="25" r="12" fill="#fbbf24"/>
+                            <circle cx="65" cy="25" r="12" fill="white"/>
+                            <circle cx="35" cy="75" r="12" fill="white"/>
+                            <circle cx="65" cy="75" r="12" fill="#fbbf24"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-bold text-xl text-slate-900 block leading-tight">Anirudha Tripathy</span>
+                        <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Financial Consultant</span>
+                    </div>
+                </div>
+                <!-- Main Tabs (Desktop) -->
+                <div class="hidden xl:flex space-x-1">
+                    <button onclick="switchTab('home')" id="btn-home" class="nav-btn active px-3 py-2 text-slate-600 hover:text-blue-900 hover:bg-slate-50 rounded-lg font-medium transition-colors text-sm">Home</button>
+                    <button onclick="switchTab('services')" id="btn-services" class="nav-btn px-3 py-2 text-slate-600 hover:text-blue-900 hover:bg-slate-50 rounded-lg font-medium transition-colors text-sm">Services & Pricing</button>
+                    <button onclick="switchTab('explore')" id="btn-explore" class="nav-btn px-3 py-2 text-slate-600 hover:text-blue-900 hover:bg-slate-50 rounded-lg font-medium transition-colors text-sm">Explore Free</button>
+                    <button onclick="switchTab('portal')" id="btn-portal" class="nav-btn px-3 py-2 text-slate-600 hover:text-blue-900 hover:bg-slate-50 rounded-lg font-medium transition-colors text-sm"><i class="fas fa-lock mr-1"></i>Client Portal</button>
+                    <button onclick="switchTab('training')" id="btn-training" class="nav-btn px-3 py-2 text-slate-600 hover:text-blue-900 hover:bg-slate-50 rounded-lg font-medium transition-colors text-sm">Training</button>
+                    <button onclick="switchTab('contact')" id="btn-contact" class="nav-btn px-4 py-2 bg-blue-900 text-white rounded-full font-medium hover:bg-blue-800 transition-colors shadow-lg hover:shadow-blue-900/20 ml-2 text-sm">Contact</button>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="xl:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-blue-900 focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-white border-t border-slate-100 absolute w-full shadow-lg z-40">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <button onclick="switchTab('home')" class="block w-full text-left px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-blue-900 rounded-md">Home</button>
+                <button onclick="switchTab('services')" class="block w-full text-left px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-blue-900 rounded-md">Services & Pricing</button>
+                <button onclick="switchTab('explore')" class="block w-full text-left px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-blue-900 rounded-md">Explore Free</button>
+                <button onclick="switchTab('portal')" class="block w-full text-left px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-blue-900 rounded-md">Client Portal</button>
+                <button onclick="switchTab('training')" class="block w-full text-left px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-blue-900 rounded-md">Training</button>
+                <button onclick="switchTab('contact')" class="block w-full text-left px-3 py-2 text-blue-900 font-bold hover:bg-slate-50 rounded-md">Contact</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT CONTAINER -->
+    <main class="pt-20 min-h-screen bg-slate-50">
+
+        <!-- TAB 1: HOME LANDING PAGE -->
+        <div id="tab-home" class="tab-content">
+            <!-- 1.1 Banner Image (Hero) -->
+            <section class="relative pt-20 pb-20 lg:pt-32 lg:pb-32 overflow-hidden hero-pattern">
+                <div class="absolute inset-0 bg-gradient-to-r from-slate-900/95 to-blue-900/90"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div class="text-white space-y-6">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-sm font-medium">
+                                <i class="fas fa-check-circle"></i> Ex-Vice President
+                            </div>
+                            <h1 class="text-4xl lg:text-6xl font-bold leading-tight">
+                                Strategic Financial Consulting & <span class="text-blue-400">Problem Solving</span>
+                            </h1>
+                            <p class="text-xl text-slate-300 max-w-lg">
+                                Leveraging Big 4 experience to deliver precision accounting, complex financial modeling, and global tax compliance solutions.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                                <button onclick="scrollToElement('user-form-section')" class="px-8 py-4 bg-white text-blue-900 rounded-lg font-bold hover:bg-blue-50 transition-all shadow-lg text-center">
+                                    Connect Now
+                                </button>
+                                <button onclick="switchTab('services')" class="px-8 py-4 bg-transparent border border-slate-400 text-white rounded-lg font-medium hover:bg-white/10 transition-all text-center">
+                                    Explore Services
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Animated Illustration -->
+                        <div class="hidden lg:block relative group">
+                            <div class="relative w-80 h-96 mx-auto bg-slate-800 rounded-2xl shadow-2xl border-4 border-slate-700/50 overflow-hidden transform group-hover:scale-105 transition-transform duration-500 flex items-end justify-center">
+                                <!-- Animated SVG: Person with Pen -->
+                                <svg viewBox="0 0 400 500" class="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+                                    <defs>
+                                        <linearGradient id="suitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#172554;stop-opacity:1" />
+                                        </linearGradient>
+                                        <filter id="shadow">
+                                            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+                                        </filter>
+                                    </defs>
+                                    <rect width="400" height="500" fill="#0f172a" />
+                                    <circle cx="200" cy="180" r="55" fill="#f8fafc" />
+                                    <path d="M145 180 Q 145 110 200 110 Q 255 110 255 180 Z" fill="#334155" />
+                                    <path d="M 80 500 L 80 320 Q 200 270 320 320 L 320 500 Z" fill="url(#suitGrad)" />
+                                    <path d="M 170 320 L 200 420 L 230 320 Z" fill="white" /> 
+                                    <path d="M 200 320 L 210 350 L 200 380 L 190 350 Z" fill="#ef4444" filter="url(#shadow)" /> 
+                                    <path d="M 200 380 L 215 500 H 185 Z" fill="#ef4444" /> 
+                                    <rect x="0" y="450" width="400" height="50" fill="#334155" />
+                                    <g class="animated-paper">
+                                        <rect x="120" y="460" width="160" height="100" fill="white" rx="2" transform="rotate(-2 200 460)" filter="url(#shadow)" />
+                                        <line x1="140" y1="475" x2="260" y2="470" stroke="#cbd5e1" stroke-width="2" transform="rotate(-2 200 460)" />
+                                        <line x1="140" y1="485" x2="260" y2="480" stroke="#cbd5e1" stroke-width="2" transform="rotate(-2 200 460)" />
+                                        <line x1="140" y1="495" x2="240" y2="490" stroke="#cbd5e1" stroke-width="2" transform="rotate(-2 200 460)" />
+                                    </g>
+                                    <g class="writing-arm-group">
+                                        <path d="M 320 340 Q 300 400 240 430" stroke="#1e3a8a" stroke-width="40" stroke-linecap="round" fill="none" />
+                                        <circle cx="230" cy="440" r="18" fill="#f8fafc" />
+                                        <line x1="230" y1="440" x2="190" y2="470" stroke="#94a3b8" stroke-width="6" stroke-linecap="round" /> 
+                                        <line x1="190" y1="470" x2="185" y2="474" stroke="#1e293b" stroke-width="3" stroke-linecap="round" /> 
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="absolute -z-10 top-10 right-10 w-80 h-96 border-2 border-blue-500/30 rounded-2xl translate-x-4 translate-y-4"></div>
+                            <div class="absolute -z-10 bottom-10 left-10 w-24 h-24 bg-blue-600 rounded-full blur-2xl opacity-40"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1.2 About Anirudha & 1.3 Credentials -->
+            <section class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-12 gap-12 items-start">
+                        <div class="md:col-span-8">
+                            <span class="text-blue-600 font-bold uppercase tracking-widest text-sm">Profile</span>
+                            <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6 mt-2">About Anirudha Tripathy</h2>
+                            <div class="prose prose-lg text-slate-600 leading-relaxed text-justify">
+                                <p class="mb-4">
+                                    Anirudha Tripathy is a seasoned financial strategist and Ex-Vice President with extensive experience transforming financial operations for global organizations. Holding an M.Com and B.Com(H), he combines deep academic foundations with the rigorous discipline of Big 4 consulting. Anirudha’s expertise transcends borders, skillfully navigating complex accounting landscapes across India (IAS/GST), the US (GAAP/Tax), EMEA, Australia, and the Middle East.
+                                </p>
+                                <p>
+                                    He specializes in high-stakes financial modeling, delivering precision in LBOs, PCAP, and waterfall distribution models for private equity. Beyond the numbers, Anirudha is a problem solver, adept at managing GBS setups, optimizing accounting operations, and ensuring strict regulatory compliance. Dedicated to excellence, he empowers clients—from agile startups to multinational corporations—with actionable financial insights and robust operational frameworks that drive sustainable growth.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Credentials -->
+                        <div class="md:col-span-4 space-y-6">
+                            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm">
+                                <h3 class="text-lg font-bold text-slate-900 mb-4 border-b border-slate-200 pb-2">Credentials</h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold text-xs">VP</div>
+                                        <div>
+                                            <div class="font-bold text-slate-900">Ex-Vice President</div>
+                                            <div class="text-xs text-slate-500">Corporate Finance</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold text-xs">EDU</div>
+                                        <div>
+                                            <div class="font-bold text-slate-900">M.COM, B.COM(H)</div>
+                                            <div class="text-xs text-slate-500">Academic Excellence</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold text-xs">EXP</div>
+                                        <div>
+                                            <div class="font-bold text-slate-900">Big 4 Experience</div>
+                                            <div class="text-xs text-slate-500">Consulting & Audit</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1.4 User Form (Quick Inquiry) -->
+            <section id="user-form-section" class="py-12 bg-slate-50 border-y border-slate-200">
+                <div class="max-w-4xl mx-auto px-4">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col md:flex-row items-center gap-8">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold text-slate-900 mb-2">Ready to optimize your finances?</h3>
+                            <p class="text-slate-600 mb-4">Leave your details for a quick callback or consultation arrangement.</p>
+                            <ul class="text-sm text-slate-500 space-y-1">
+                                <li><i class="fas fa-check text-green-500 mr-2"></i> Free initial assessment</li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i> Confidentiality guaranteed</li>
+                            </ul>
+                        </div>
+                        <form onsubmit="handleFormSubmit(event)" class="flex-1 w-full space-y-4">
+                            <input type="hidden" name="form_type" value="quick_inquiry">
+                            <input type="text" name="name" required placeholder="Your Name" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <input type="email" name="email" required placeholder="Email Address" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <button type="submit" class="w-full py-3 bg-blue-900 text-white rounded-lg font-bold hover:bg-blue-800 transition-colors">
+                                Request Callback
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 2: SERVICES & PRICING -->
+        <div id="tab-services" class="tab-content hidden">
+            <section class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Expertise</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 mt-2">Comprehensive Services</h2>
+                        <p class="text-lg text-slate-600">Delivering end-to-end accounting and financial solutions tailored to your business needs.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                        <!-- 2.1 Core Accounting -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-3">Core Accounting</h3>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li><i class="fas fa-check text-blue-500 mr-2"></i> Bookkeeping & GL</li>
+                                <li><i class="fas fa-check text-blue-500 mr-2"></i> AP / AR Management</li>
+                                <li><i class="fas fa-check text-blue-500 mr-2"></i> Payroll</li>
+                                <li><i class="fas fa-check text-blue-500 mr-2"></i> Financial Reporting</li>
+                            </ul>
+                        </div>
+
+                        <!-- 2.2 Tax Compliance -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                            <div class="w-12 h-12 bg-green-50 text-green-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-3">Tax Compliance</h3>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li><i class="fas fa-check text-green-500 mr-2"></i> GST (India)</li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i> VAT (US/ME)</li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i> Income Tax (Global)</li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i> Regulatory Filings</li>
+                            </ul>
+                        </div>
+
+                        <!-- 2.3 Data Models -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-3">Data Models</h3>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li><i class="fas fa-check text-purple-500 mr-2"></i> LBO & PCAP Models</li>
+                                <li><i class="fas fa-check text-purple-500 mr-2"></i> Waterfall Distribution</li>
+                                <li><i class="fas fa-check text-purple-500 mr-2"></i> 3-Statement Models</li>
+                                <li><i class="fas fa-check text-purple-500 mr-2"></i> XIRR/IRR Calculation</li>
+                            </ul>
+                        </div>
+
+                        <!-- 2.4 Project Management -->
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                            <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-3">Project Mgmt</h3>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li><i class="fas fa-check text-orange-500 mr-2"></i> GBS Setup</li>
+                                <li><i class="fas fa-check text-orange-500 mr-2"></i> Ops Optimization</li>
+                                <li><i class="fas fa-check text-orange-500 mr-2"></i> ERP Data Cleaning</li>
+                                <li><i class="fas fa-check text-orange-500 mr-2"></i> Delivery Mgmt</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Section Moved Here -->
+                    <div class="bg-slate-50 rounded-3xl p-10 border border-slate-200">
+                        <div class="text-center mb-12">
+                            <h3 class="text-2xl font-bold text-slate-900">Transparent Pricing Models</h3>
+                            <p class="text-slate-600 mt-2">Choose an engagement model that fits your project scope.</p>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <!-- Hourly/Ad-Hoc -->
+                            <div class="bg-white border border-slate-200 rounded-2xl p-8 hover:border-blue-500 hover:shadow-lg transition-all">
+                                <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wide mb-2">Consultation</h3>
+                                <div class="text-3xl font-bold text-slate-900 mb-6">Hourly / Ad-hoc</div>
+                                <p class="text-slate-600 mb-6">Ideal for specific problem solving, model review, or tax consultation sessions.</p>
+                                <button onclick="switchTab('contact')" class="block w-full text-center py-3 border border-slate-300 rounded-lg font-medium hover:bg-slate-50 transition-colors">Inquire Rates</button>
+                            </div>
+
+                            <!-- Project Based -->
+                            <div class="bg-white border-2 border-blue-600 relative rounded-2xl p-8 hover:shadow-lg transition-all">
+                                <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">POPULAR</div>
+                                <h3 class="text-lg font-bold text-blue-900 uppercase tracking-wide mb-2">Project Based</h3>
+                                <div class="text-3xl font-bold text-slate-900 mb-6">Fixed Price</div>
+                                <p class="text-slate-600 mb-6">Perfect for GBS setup, complex financial modeling, or year-end reporting packages.</p>
+                                <button onclick="switchTab('contact')" class="block w-full text-center py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">Get a Quote</button>
+                            </div>
+
+                            <!-- Retainer -->
+                            <div class="bg-white border border-slate-200 rounded-2xl p-8 hover:border-blue-500 hover:shadow-lg transition-all">
+                                <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wide mb-2">Retainer</h3>
+                                <div class="text-3xl font-bold text-slate-900 mb-6">Monthly</div>
+                                <p class="text-slate-600 mb-6">Ongoing bookkeeping, tax compliance, and financial oversight for your business.</p>
+                                <button onclick="switchTab('contact')" class="block w-full text-center py-3 border border-slate-300 rounded-lg font-medium hover:bg-slate-50 transition-colors">Contact for Terms</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 3: EXPLORE FREE (Formerly Self Service) -->
+        <div id="tab-explore" class="tab-content hidden">
+            <!-- 3.1 Tools Header -->
+            <section class="py-20 bg-blue-900 text-white relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="text-center mb-12">
+                        <span class="bg-blue-800 text-blue-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Free Tools</span>
+                        <h2 class="text-3xl md:text-4xl font-bold mt-2">Explore Financial Tools</h2>
+                        <p class="text-blue-200 mt-4 max-w-2xl mx-auto">Use our calculators for Tax and Investments, or request access to sample templates.</p>
+                    </div>
+
+                    <!-- Calculators Grid -->
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        
+                        <!-- 3.1.1 Tax Calculator -->
+                        <div class="bg-white text-slate-800 p-8 rounded-2xl shadow-xl h-full">
+                            <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-file-invoice-dollar text-blue-600"></i> Global Tax Estimator</h3>
+                            <form onsubmit="event.preventDefault(); updateTaxInfo();" class="space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <select id="tax-category" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                        <option value="income">Income Tax</option>
+                                        <option value="gst">GST / Sales Tax</option>
+                                    </select>
+                                    <select id="tax-country" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                        <option value="global">Select Country...</option>
+                                        <option value="india">India</option>
+                                        <option value="usa">United States</option>
+                                        <option value="uk">United Kingdom</option>
+                                        <option value="uae">Middle East (UAE)</option>
+                                    </select>
+                                </div>
+                                <div class="p-4 bg-slate-100 rounded-lg border border-slate-200">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-xs text-slate-500 uppercase font-bold">Standard Rate</span>
+                                        <span class="text-lg font-bold text-blue-900" id="info-rate">--%</span>
+                                    </div>
+                                    <div class="text-xs text-slate-600" id="info-compliance">Select a region to view details.</div>
+                                </div>
+                                <button type="submit" class="w-full py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-colors text-sm">Update Info</button>
+                            </form>
+                        </div>
+
+                        <!-- 3.1.2 SIP Calculator -->
+                        <div class="bg-white text-slate-800 p-8 rounded-2xl shadow-xl h-full">
+                            <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-chart-line text-green-600"></i> SIP Value Calculator</h3>
+                            <form onsubmit="event.preventDefault(); calculateSIP();" class="space-y-4">
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div class="col-span-1">
+                                        <label class="block text-xs font-bold text-slate-500 mb-1">Monthly</label>
+                                        <input type="number" id="sip-amount" placeholder="5000" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label class="block text-xs font-bold text-slate-500 mb-1">Rate %</label>
+                                        <input type="number" id="sip-rate" placeholder="12" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label class="block text-xs font-bold text-slate-500 mb-1">Years</label>
+                                        <input type="number" id="sip-years" placeholder="10" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-green-50 rounded-lg border border-green-100 flex justify-between items-center">
+                                    <span class="text-sm text-green-800 font-medium">Future Value:</span>
+                                    <span class="text-xl font-bold text-green-700" id="sip-result">₹ 0</span>
+                                </div>
+                                <button type="submit" class="w-full py-2 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700 transition-colors text-sm">Calculate SIP</button>
+                            </form>
+                        </div>
+
+                        <!-- 3.1.3 IRR/CAGR Calculator -->
+                        <div class="bg-white text-slate-800 p-8 rounded-2xl shadow-xl h-full">
+                            <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-percentage text-purple-600"></i> CAGR / Return Calc</h3>
+                            <form onsubmit="event.preventDefault(); calculateCAGR();" class="space-y-4">
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-500 mb-1">Initial Investment</label>
+                                        <input type="number" id="cagr-initial" placeholder="100000" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-500 mb-1">Final Value</label>
+                                            <input type="number" id="cagr-final" placeholder="150000" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-slate-500 mb-1">Years</label>
+                                            <input type="number" id="cagr-years" placeholder="3" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-purple-50 rounded-lg border border-purple-100 flex justify-between items-center">
+                                    <span class="text-sm text-purple-800 font-medium">Annual Return:</span>
+                                    <span class="text-xl font-bold text-purple-700" id="cagr-result">0.00%</span>
+                                </div>
+                                <button type="submit" class="w-full py-2 bg-purple-600 text-white rounded-lg font-bold hover:bg-purple-700 transition-colors text-sm">Calculate Return</button>
+                            </form>
+                        </div>
+
+                        <!-- 3.1.4 EMI & Amortization Calculator (NEW) -->
+                        <div class="bg-white text-slate-800 p-8 rounded-2xl shadow-xl h-full">
+                            <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-calculator text-red-600"></i> EMI & Amortization</h3>
+                            <form onsubmit="event.preventDefault(); calculateEMI();" class="space-y-4">
+                                <div class="grid grid-cols-3 gap-4">
+                                    <div class="col-span-1">
+                                        <label class="block text-xs font-bold text-slate-500 mb-1">Principal</label>
+                                        <input type="number" id="emi-p" placeholder="100000" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label class="block text-xs font-bold text-slate-500 mb-1">Rate %</label>
+                                        <input type="number" id="emi-r" placeholder="10" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label class="block text-xs font-bold text-slate-500 mb-1">Years</label>
+                                        <input type="number" id="emi-n" placeholder="5" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-sm">
+                                    </div>
+                                </div>
+                                <div class="p-4 bg-red-50 rounded-lg border border-red-100 flex justify-between items-center">
+                                    <span class="text-sm text-red-800 font-medium">Monthly EMI:</span>
+                                    <span class="text-xl font-bold text-red-700" id="emi-result">₹ 0</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button type="submit" class="w-full py-2 bg-red-600 text-white rounded-lg font-bold hover:bg-red-700 transition-colors text-sm">Calculate</button>
+                                    <button type="button" onclick="downloadAmortization()" class="w-full py-2 bg-slate-700 text-white rounded-lg font-bold hover:bg-slate-800 transition-colors text-sm flex items-center justify-center gap-2"><i class="fas fa-file-excel"></i> Download</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3.2 Mutual Fund Suggestions & Sample Docs -->
+            <section class="py-12 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Mutual Funds -->
+                        <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
+                            <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i class="fas fa-piggy-bank text-orange-500"></i> Top Mutual Fund Picks</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center bg-white p-3 rounded shadow-sm">
+                                    <div><div class="font-bold text-sm">Bluechip Equity Fund</div><div class="text-xs text-slate-500">Large Cap • High Growth</div></div>
+                                    <span class="text-green-600 font-bold text-sm">15.4% 3Y</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-white p-3 rounded shadow-sm">
+                                    <div><div class="font-bold text-sm">Flexi Cap Opportunities</div><div class="text-xs text-slate-500">Diversified • Moderate Risk</div></div>
+                                    <span class="text-green-600 font-bold text-sm">18.2% 3Y</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-white p-3 rounded shadow-sm">
+                                    <div><div class="font-bold text-sm">Global Index Fund</div><div class="text-xs text-slate-500">US Markets • Passive</div></div>
+                                    <span class="text-green-600 font-bold text-sm">12.8% 3Y</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-3 italic">* Past performance is not indicative of future results.</p>
+                        </div>
+
+                        <!-- Sample Documents Request -->
+                        <div class="bg-blue-50 rounded-xl p-6 border border-blue-100 flex flex-col justify-center items-center text-center">
+                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-blue-600 text-2xl mb-4 shadow-sm">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-blue-900 mb-2">Sample Financial Models</h3>
+                            <p class="text-sm text-blue-700 mb-6">Get access to read-only versions of our LBO, DCF, and 3-Statement models to evaluate quality.</p>
+                            <a href="#contact" onclick="switchTab('contact')" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-md">
+                                Request Access
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3.3 Global Launches & Opportunities (NEW) -->
+            <section class="py-12 bg-slate-50 border-t border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="mb-10 border-l-4 border-blue-600 pl-4">
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Global Launches & Opportunities</h2>
+                        <p class="text-slate-600">Track the latest IPOs and Alternative Investment Funds.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- IPO List -->
+                        <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                            <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i class="fas fa-rocket text-blue-600"></i> Upcoming IPOs</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                                    <div><h4 class="font-bold text-slate-800 text-sm">TechNova Corp</h4><p class="text-xs text-slate-500">AI & Robotics • USA</p></div>
+                                    <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">Dec 20</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                                    <div><h4 class="font-bold text-slate-800 text-sm">GreenEnergy Ltd</h4><p class="text-xs text-slate-500">Renewables • India</p></div>
+                                    <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded">Jan 05</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                                    <div><h4 class="font-bold text-slate-800 text-sm">BioMed Solutions</h4><p class="text-xs text-slate-500">Healthcare • UK</p></div>
+                                    <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-1 rounded">Jan 12</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alt Funds List -->
+                        <div class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+                            <h3 class="font-bold text-lg mb-4 flex items-center gap-2"><i class="fas fa-briefcase text-purple-600"></i> Alternative Funds (AIF)</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                                    <div><h4 class="font-bold text-slate-800 text-sm">Horizon Real Estate Fund II</h4><p class="text-xs text-slate-500">Commercial RE • Min: $500k</p></div>
+                                    <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2 py-1 rounded">Open</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                                    <div><h4 class="font-bold text-slate-800 text-sm">Venture Debt Opportunities</h4><p class="text-xs text-slate-500">Private Credit • Min: $100k</p></div>
+                                    <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2 py-1 rounded">Open</span>
+                                </div>
+                                <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                                    <div><h4 class="font-bold text-slate-800 text-sm">Global Infra Yield Trust</h4><p class="text-xs text-slate-500">Infrastructure • Min: $250k</p></div>
+                                    <span class="bg-slate-200 text-slate-600 text-xs font-bold px-2 py-1 rounded">Closing Soon</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3.4 Featured Add Section -->
+            <section class="py-12 bg-slate-100 border-t border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-gradient-to-r from-purple-900 to-indigo-900 rounded-2xl p-8 text-white flex flex-col md:flex-row items-center justify-between shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                        <div class="relative z-10 md:w-2/3">
+                            <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded uppercase mb-2 inline-block">Featured Offer</span>
+                            <h3 class="text-2xl font-bold mb-2">Year-End Tax Planning Special</h3>
+                            <p class="text-purple-200 text-sm">Book a comprehensive tax review before March 31st and get a complimentary portfolio health check.</p>
+                        </div>
+                        <div class="relative z-10 mt-6 md:mt-0">
+                            <button onclick="switchTab('contact')" class="px-6 py-3 bg-white text-purple-900 font-bold rounded-lg hover:bg-purple-50 transition-colors">Claim Offer</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3.4 Market News (Existing) -->
+            <section class="py-12 bg-white">
+                <!-- Ticker -->
+                <div class="w-full bg-slate-900 text-white py-3 overflow-hidden border-y border-slate-800 mb-8">
+                    <div class="ticker-wrap">
+                        <div class="ticker-content flex gap-12 font-mono text-sm">
+                            <span class="flex items-center gap-2">S&P 500 <span class="text-green-400">▲ 4,783.45</span></span>
+                            <span class="flex items-center gap-2">DOW <span class="text-red-400">▼ 37,440.12</span></span>
+                            <span class="flex items-center gap-2">NSE NIFTY <span class="text-green-400">▲ 21,780.50</span></span>
+                            <span class="flex items-center gap-2">NIKKEI <span class="text-green-400">▲ 33,377.42</span></span>
+                            <span class="flex items-center gap-2">GOLD <span class="text-green-400">▲ 2,045.60</span></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Simple News List -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h3 class="font-bold text-lg mb-4 text-slate-900">Latest Market Headlines</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="p-4 border border-slate-200 rounded-lg hover:shadow-md transition-shadow">
+                            <span class="text-xs text-blue-600 font-bold">MARKETS</span>
+                            <h4 class="font-bold text-sm mt-1">Global Markets Rally as Inflation Cools</h4>
+                        </div>
+                        <div class="p-4 border border-slate-200 rounded-lg hover:shadow-md transition-shadow">
+                            <span class="text-xs text-green-600 font-bold">REGULATION</span>
+                            <h4 class="font-bold text-sm mt-1">New Global Minimum Tax Rules Effect</h4>
+                        </div>
+                        <div class="p-4 border border-slate-200 rounded-lg hover:shadow-md transition-shadow">
+                            <span class="text-xs text-purple-600 font-bold">FOREX</span>
+                            <h4 class="font-bold text-sm mt-1">Currency Volatility Creates Opportunities</h4>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 4: CLIENT PORTAL (New) -->
+        <div id="tab-portal" class="tab-content hidden">
+            <section class="min-h-screen py-20 bg-slate-100 flex items-center justify-center">
+                <div class="max-w-md w-full px-4">
+                    <!-- Login Form Container -->
+                    <div id="portal-login" class="bg-white p-8 rounded-2xl shadow-xl border border-slate-200">
+                        <div class="text-center mb-8">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-900 text-2xl">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-slate-900">Client Portal</h2>
+                            <p class="text-sm text-slate-600">Please sign in to access secure documents.</p>
+                        </div>
+                        <form onsubmit="handlePortalLogin(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1">Client ID</label>
+                                <input type="text" id="portal-id" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1">Password</label>
+                                <input type="password" id="portal-pass" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+                            </div>
+                            <button type="submit" class="w-full py-3 bg-blue-900 text-white rounded-lg font-bold hover:bg-blue-800 transition-all shadow-lg">
+                                Secure Login
+                            </button>
+                            <p class="text-xs text-center text-slate-400 mt-4">Credentials provided by Administrator only.</p>
+                        </form>
+                    </div>
+
+                    <!-- Secure Area (Hidden by default) -->
+                    <div id="portal-content" class="hidden bg-white p-8 rounded-2xl shadow-xl border border-slate-200 text-center">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600 text-2xl">
+                            <i class="fas fa-unlock-alt"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2">Access Granted</h2>
+                        <p class="text-slate-600 mb-8">Welcome back. You can now access your dedicated secure folder.</p>
+                        
+                        <a href="https://drive.google.com/drive/folders/1KIE-JpymWO0lPg4jXuvtS8erRsdwYlsR?usp=drive_link" target="_blank" class="block w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg mb-4 flex items-center justify-center gap-3">
+                            <i class="fab fa-google-drive text-xl"></i> Open Shared Drive
+                        </a>
+                        <button onclick="location.reload()" class="text-sm text-slate-500 hover:text-red-500 underline">Logout</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 5: TRAINING (New - Active Soon) -->
+        <div id="tab-training" class="tab-content hidden">
+            <section class="min-h-screen py-20 bg-slate-50 flex items-center justify-center text-center">
+                <div class="max-w-2xl px-4">
+                    <div class="text-6xl text-slate-300 mb-6"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h2 class="text-4xl font-bold text-slate-900 mb-4">Training Academy</h2>
+                    <div class="inline-block bg-yellow-100 text-yellow-800 text-sm font-bold px-4 py-2 rounded-full mb-6">
+                        COMING SOON
+                    </div>
+                    <p class="text-xl text-slate-600 leading-relaxed">
+                        We are building a comprehensive curriculum on Financial Modeling, Advanced Excel for Finance, and Global Tax Compliance.
+                    </p>
+                    <div class="mt-8 p-6 bg-white rounded-xl shadow-sm border border-slate-200 max-w-md mx-auto">
+                        <p class="text-sm font-bold text-slate-800 mb-3">Notify me when it launches:</p>
+                        <form onsubmit="alert('You are on the list!'); event.preventDefault();" class="flex gap-2">
+                            <input type="email" required placeholder="Enter your email" class="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm outline-none focus:border-blue-500">
+                            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-700">Notify</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 6: CONTACT INFO -->
+        <div id="tab-contact" class="tab-content hidden">
+            <section class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Get in Touch</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 mt-2">Contact Information</h2>
+                    </div>
+                    <div class="grid lg:grid-cols-2 gap-16">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900 mb-6">Let's solve your accounting challenges.</h2>
+                            <p class="text-lg text-slate-600 mb-8">
+                                Whether you need a complex financial model or ongoing bookkeeping, I bring Big 4 expertise to your project. Reach out for a preliminary discussion.
+                            </p>
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 flex-shrink-0"><i class="fas fa-envelope"></i></div>
+                                    <div><h3 class="font-bold text-slate-900">Email</h3><p class="text-slate-600">tripathy.anirudha@gmail.com</p></div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 flex-shrink-0"><i class="fas fa-phone"></i></div>
+                                    <div><h3 class="font-bold text-slate-900">Phone</h3><p class="text-slate-600">8904888808</p></div>
+                                </div>
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 flex-shrink-0"><i class="fas fa-map-marker-alt"></i></div>
+                                    <div><h3 class="font-bold text-slate-900">Location</h3><p class="text-slate-600">Based in India, serving clients Globally.</p></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100 shadow-sm">
+                            <form onsubmit="handleFormSubmit(event)" class="space-y-6">
+                                <input type="hidden" name="form_type" value="main_contact">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
+                                    <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="John Doe">
+                                </div>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
+                                        <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="john@company.com">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-slate-700 mb-2">Service Interest</label>
+                                        <select name="service" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all">
+                                            <option>Accounting & Bookkeeping</option>
+                                            <option>Tax Services (Intl)</option>
+                                            <option>Financial Modeling</option>
+                                            <option>Project Management</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">Project Details</label>
+                                    <textarea name="message" required rows="4" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all" placeholder="Briefly describe your requirements..."></textarea>
+                                </div>
+                                <button type="submit" class="w-full py-4 bg-blue-900 text-white rounded-lg font-bold hover:bg-blue-800 transition-all shadow-lg hover:shadow-blue-900/20">
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="text-white text-xl font-serif font-bold mb-4">Anirudha Tripathy</div>
+                    <p class="max-w-sm mb-6">Expert financial consulting for modern businesses. Combining Big 4 discipline with freelance flexibility.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-400 hover:text-white transition-all"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Services</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><button onclick="switchTab('services')" class="hover:text-blue-400 transition-colors">Bookkeeping</button></li>
+                        <li><button onclick="switchTab('services')" class="hover:text-blue-400 transition-colors">Financial Reporting</button></li>
+                        <li><button onclick="switchTab('services')" class="hover:text-blue-400 transition-colors">Tax Compliance</button></li>
+                        <li><button onclick="switchTab('services')" class="hover:text-blue-400 transition-colors">LBO Modeling</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 text-center text-sm">
+                <p>&copy; 2024 Anirudha Tripathy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <button id="chat-toggle" onclick="toggleChat()" class="fixed bottom-6 right-6 w-16 h-16 bg-white border-2 border-blue-600 hover:border-blue-700 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 z-50 chat-float group overflow-hidden">
+        <svg viewBox="0 0 100 100" class="w-10 h-10 group-hover:hidden" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(0, 5)">
+                <rect x="42" y="45" width="16" height="15" fill="#94a3b8" />
+                <g transform="rotate(-5, 50, 40)">
+                    <path d="M22 25 Q 28 12 48 25 Q 52 28 48 40 L 22 40 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+                    <circle cx="35" cy="32" r="5" fill="#1e293b">
+                        <animate attributeName="cx" values="35;32;35" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+                <g transform="rotate(5, 50, 40)">
+                    <path d="M78 25 Q 72 12 52 25 Q 48 28 52 40 L 78 40 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+                    <circle cx="65" cy="32" r="5" fill="#1e293b">
+                        <animate attributeName="cx" values="65;68;65" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                </g>
+                <rect x="20" y="55" width="60" height="45" rx="6" fill="#fbbf24" stroke="#d97706" stroke-width="3" />
+                <rect x="30" y="65" width="40" height="15" fill="#334155" rx="2" />
+                <circle cx="38" cy="72" r="3" fill="#ef4444">
+                    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
+                </circle> 
+                <rect x="48" y="70" width="15" height="5" fill="#10b981" /> 
+            </g>
+        </svg>
+        <i class="fas fa-times text-2xl text-blue-600 hidden group-hover:block"></i>
+    </button>
+
+    <div id="chat-window" class="fixed bottom-24 right-6 w-[90vw] md:w-96 bg-white rounded-2xl shadow-2xl z-50 hidden flex-col border border-slate-200 overflow-hidden transform transition-all duration-300 origin-bottom-right scale-95 opacity-0 max-h-[500px]">
+        <div class="bg-blue-900 p-4 flex justify-between items-center text-white shadow-md">
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center border-2 border-blue-300 overflow-hidden">
+                         <svg viewBox="0 0 100 100" class="w-10 h-10 mt-1" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="scale(0.9) translate(5, 5)">
+                                <rect x="42" y="45" width="16" height="15" fill="#94a3b8" />
+                                <g transform="rotate(-5, 50, 40)">
+                                    <path d="M22 25 Q 28 12 48 25 Q 52 28 48 40 L 22 40 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+                                    <circle cx="35" cy="32" r="5" fill="#1e293b" />
+                                </g>
+                                <g transform="rotate(5, 50, 40)">
+                                    <path d="M78 25 Q 72 12 52 25 Q 48 28 52 40 L 78 40 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+                                    <circle cx="65" cy="32" r="5" fill="#1e293b" />
+                                </g>
+                                <rect x="20" y="55" width="60" height="45" rx="6" fill="#fbbf24" stroke="#d97706" stroke-width="3" />
+                                <rect x="30" y="65" width="40" height="15" fill="#334155" rx="2" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-blue-900 animate-pulse"></div>
+                </div>
+                <div>
+                    <span class="font-bold block text-sm">FinBot Assistant</span>
+                    <span class="text-xs text-blue-200">Online & Ready</span>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="text-white hover:bg-blue-800 p-2 rounded-full transition-colors"><i class="fas fa-chevron-down"></i></button>
+        </div>
+        <div id="chat-messages" class="flex-1 p-4 h-80 overflow-y-auto space-y-4 bg-slate-50"></div>
+        <div class="p-3 bg-white border-t border-slate-100">
+             <div class="flex gap-2">
+                <input type="text" id="chat-input" placeholder="Type a message..." class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all" onkeypress="handleEnter(event)">
+                <button onclick="sendMessage()" class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition-all shadow-sm transform hover:scale-105">
+                    <i class="fas fa-paper-plane text-sm"></i>
+                </button>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        // TAB SWITCHING LOGIC
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.add('hidden'));
+            
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active', 'bg-slate-100'));
+
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if(activeBtn) activeBtn.classList.add('active');
+
+            const menu = document.getElementById('mobile-menu');
+            if(!menu.classList.contains('hidden')) menu.classList.add('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToElement(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // TAX TOOL LOGIC
+        const taxData = {
+            india: { rate: "30%", compliance: "GST + Income Tax Act 1961", filing: "Annual (July 31st)" },
+            usa: { rate: "21% (Corp)", compliance: "IRS Form 1120 / 1040", filing: "April 15th" },
+            uk: { rate: "25%", compliance: "HMRC CT600 / Self Assessment", filing: "Jan 31st" },
+            uae: { rate: "9%", compliance: "Federal Decree-Law No. 47", filing: "9 months after FY end" },
+            global: { rate: "Varies", compliance: "Select a country to view details", filing: "--" }
+        };
+
+        function updateTaxInfo() {
+            const countrySelect = document.getElementById('tax-country');
+            const selectedCountry = countrySelect.value;
+            const data = taxData[selectedCountry] || taxData.global;
+
+            document.getElementById('info-rate').textContent = data.rate;
+            document.getElementById('info-compliance').textContent = data.compliance;
+        }
+
+        // SIP CALCULATOR LOGIC
+        function calculateSIP() {
+            const P = parseFloat(document.getElementById('sip-amount').value);
+            const rate = parseFloat(document.getElementById('sip-rate').value);
+            const years = parseFloat(document.getElementById('sip-years').value);
+
+            if (!P || !rate || !years) {
+                alert("Please fill in all SIP fields");
+                return;
+            }
+
+            const i = (rate / 100) / 12;
+            const n = years * 12;
+            
+            // SIP Formula: M = P * ({[1 + i]^n - 1} / i) * (1 + i)
+            const M = P * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+            
+            document.getElementById('sip-result').innerText = "₹ " + Math.round(M).toLocaleString('en-IN');
+        }
+
+        // CAGR CALCULATOR LOGIC
+        function calculateCAGR() {
+            const initial = parseFloat(document.getElementById('cagr-initial').value);
+            const finalVal = parseFloat(document.getElementById('cagr-final').value);
+            const years = parseFloat(document.getElementById('cagr-years').value);
+
+            if (!initial || !finalVal || !years) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            const cagr = (Math.pow((finalVal / initial), (1 / years)) - 1) * 100;
+            document.getElementById('cagr-result').innerText = cagr.toFixed(2) + "%";
+        }
+
+        // EMI & AMORTIZATION CALCULATOR LOGIC
+        function calculateEMI() {
+            const P = parseFloat(document.getElementById('emi-p').value);
+            const R = parseFloat(document.getElementById('emi-r').value);
+            const N = parseFloat(document.getElementById('emi-n').value);
+
+            if (!P || !R || !N) {
+                alert("Please fill in all EMI fields");
+                return;
+            }
+
+            const r = R / 12 / 100; // Monthly interest rate
+            const n = N * 12; // Tenure in months
+
+            const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+            document.getElementById('emi-result').innerText = "₹ " + Math.round(emi).toLocaleString('en-IN');
+        }
+
+        function downloadAmortization() {
+            const P = parseFloat(document.getElementById('emi-p').value);
+            const R = parseFloat(document.getElementById('emi-r').value);
+            const N = parseFloat(document.getElementById('emi-n').value);
+
+            if (!P || !R || !N) {
+                alert("Please calculate EMI first or fill in all fields.");
+                return;
+            }
+
+            const r = R / 12 / 100;
+            const n = N * 12;
+            const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+
+            let balance = P;
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Month,Opening Balance,EMI,Interest Paid,Principal Paid,Closing Balance\n";
+
+            for (let i = 1; i <= n; i++) {
+                let interest = balance * r;
+                let principal = emi - interest;
+                let closingBalance = balance - principal;
+                
+                if (closingBalance < 0) closingBalance = 0; // Floating point fix
+
+                csvContent += `${i},${balance.toFixed(2)},${emi.toFixed(2)},${interest.toFixed(2)},${principal.toFixed(2)},${closingBalance.toFixed(2)}\n`;
+                balance = closingBalance;
+            }
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "amortization_schedule.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // PORTAL LOGIN LOGIC (Simulated)
+        function handlePortalLogin(e) {
+            e.preventDefault();
+            const id = document.getElementById('portal-id').value;
+            const pass = document.getElementById('portal-pass').value;
+
+            // Simple demo check
+            if(id && pass) {
+                document.getElementById('portal-login').classList.add('hidden');
+                document.getElementById('portal-content').classList.remove('hidden');
+            } else {
+                alert("Please enter valid credentials.");
+            }
+        }
+
+        /* --- Chatbot Logic (Same as before) --- */
+        const chatWindow = document.getElementById('chat-window');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const chatToggleBtn = document.getElementById('chat-toggle');
+        let isChatOpen = false;
+        let isChatInitialized = false;
+
+        const botAvatarSVG = `<div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 border border-blue-200 overflow-hidden"><svg viewBox="0 0 100 100" class="w-6 h-6 mt-1" xmlns="http://www.w3.org/2000/svg"><g transform="scale(1.1) translate(-5, -5)"><rect x="42" y="45" width="16" height="15" fill="#94a3b8" /><g transform="rotate(-5, 50, 40)"><path d="M22 25 Q 28 12 48 25 Q 52 28 48 40 L 22 40 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/><circle cx="35" cy="32" r="5" fill="#1e293b" /></g><g transform="rotate(5, 50, 40)"><path d="M78 25 Q 72 12 52 25 Q 48 28 52 40 L 78 40 Z" fill="#e2e8f0" stroke="#475569" stroke-width="2"/><circle cx="65" cy="32" r="5" fill="#1e293b" /></g><rect x="20" y="55" width="60" height="45" rx="6" fill="#fbbf24" stroke="#d97706" stroke-width="3" /></g></svg></div>`;
+
+        function toggleChat() {
+            isChatOpen = !isChatOpen;
+            if (isChatOpen) {
+                chatWindow.classList.remove('hidden');
+                chatToggleBtn.classList.remove('chat-float');
+                setTimeout(() => {
+                    chatWindow.classList.remove('opacity-0', 'scale-95', 'translate-y-4');
+                    chatWindow.classList.add('opacity-100', 'scale-100', 'translate-y-0');
+                }, 10);
+                if (!isChatInitialized) {
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        removeTypingIndicator();
+                        addBotMessage("👋 Hello! I'm your virtual assistant. How can I help you?", true);
+                        isChatInitialized = true;
+                    }, 1500);
+                }
+            } else {
+                chatWindow.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
+                chatWindow.classList.add('opacity-0', 'scale-95', 'translate-y-4');
+                chatToggleBtn.classList.add('chat-float');
+                setTimeout(() => { chatWindow.classList.add('hidden'); }, 300);
+            }
+        }
+
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            addUserMessage(text);
+            chatInput.value = '';
+            showTypingIndicator();
+            setTimeout(() => {
+                removeTypingIndicator();
+                processUserQuery(text);
+            }, 1000 + Math.random() * 1000);
+        }
+
+        function addUserMessage(text) {
+            const div = document.createElement('div');
+            div.className = 'flex justify-end mb-4 animate-fade-in-up';
+            div.innerHTML = `<div class="bg-blue-600 text-white rounded-2xl rounded-tr-none py-2 px-4 max-w-[80%] shadow-sm text-sm">${text}</div>`;
+            chatMessages.appendChild(div);
+            scrollToBottom();
+        }
+
+        function addBotMessage(text, withOptions = false) {
+            const div = document.createElement('div');
+            div.className = 'flex justify-start mb-4 items-end gap-2 animate-fade-in-up';
+            let optionsHtml = withOptions ? `<div class="mt-3 flex flex-wrap gap-2"><button onclick="handleOption('Services')" class="bg-blue-50 text-blue-700 text-xs px-3 py-1.5 rounded-full border border-blue-100 hover:bg-blue-100 transition-colors">Services</button><button onclick="handleOption('Contact')" class="bg-blue-50 text-blue-700 text-xs px-3 py-1.5 rounded-full border border-blue-100 hover:bg-blue-100 transition-colors">Contact</button></div>` : '';
+            div.innerHTML = `${botAvatarSVG}<div class="bg-white border border-slate-200 text-slate-700 rounded-2xl rounded-tl-none py-2 px-4 max-w-[85%] shadow-sm text-sm">${text}${optionsHtml}</div>`;
+            chatMessages.appendChild(div);
+            scrollToBottom();
+        }
+
+        function showTypingIndicator() {
+            const div = document.createElement('div');
+            div.id = 'typing-indicator';
+            div.className = 'flex justify-start mb-4 items-end gap-2';
+            div.innerHTML = `${botAvatarSVG}<div class="bg-white border border-slate-200 rounded-2xl rounded-tl-none py-3 px-4 shadow-sm"><div class="flex gap-1"><div class="w-2 h-2 bg-slate-400 rounded-full typing-dot"></div><div class="w-2 h-2 bg-slate-400 rounded-full typing-dot"></div><div class="w-2 h-2 bg-slate-400 rounded-full typing-dot"></div></div></div>`;
+            chatMessages.appendChild(div);
+            scrollToBottom();
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        }
+
+        function handleOption(option) {
+            addUserMessage(option);
+            showTypingIndicator();
+            setTimeout(() => {
+                removeTypingIndicator();
+                if (option === 'Services') { switchTab('services'); processUserQuery('services'); }
+                else if (option === 'Contact') { switchTab('contact'); processUserQuery('contact'); }
+            }, 800);
+        }
+
+        function processUserQuery(text) {
+            text = text.toLowerCase();
+            let response = "";
+            if (text.includes('service') || text.includes('offer')) {
+                response = "We offer Core Accounting, Tax Compliance, Financial Modeling, and Project Management services.";
+            } else if (text.includes('contact') || text.includes('email')) {
+                response = "You can reach Anirudha at <strong>tripathy.anirudha@gmail.com</strong>.";
+            } else {
+                response = "I'm not sure about that. Would you like to check our Services or Contact details?";
+                addBotMessage(response, true);
+                return;
+            }
+            addBotMessage(response);
+        }
+
+        function scrollToBottom() { chatMessages.scrollTop = chatMessages.scrollHeight; }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Thank you! Your message has been sent successfully.');
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>
