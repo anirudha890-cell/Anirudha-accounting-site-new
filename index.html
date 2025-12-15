@@ -680,7 +680,7 @@
             </section>
         </div>
 
-        <!-- TAB 4: CLIENT PORTAL (New) -->
+        <!-- TAB 4: CLIENT PORTAL (Updated with Admin) -->
         <div id="tab-portal" class="tab-content hidden">
             <section class="min-h-screen py-20 bg-slate-100 flex items-center justify-center">
                 <div class="max-w-md w-full px-4">
@@ -710,7 +710,7 @@
                     </div>
 
                     <!-- Secure Area (Hidden by default) -->
-                    <div id="portal-content" class="hidden bg-white p-8 rounded-2xl shadow-xl border border-slate-200 text-center">
+                    <div id="portal-content" class="hidden bg-white p-8 rounded-2xl shadow-xl border border-slate-200 text-center relative">
                         <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-green-600 text-2xl">
                             <i class="fas fa-unlock-alt"></i>
                         </div>
@@ -720,7 +720,31 @@
                         <a href="https://drive.google.com/drive/folders/1KIE-JpymWO0lPg4jXuvtS8erRsdwYlsR?usp=drive_link" target="_blank" class="block w-full py-4 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg mb-4 flex items-center justify-center gap-3">
                             <i class="fab fa-google-drive text-xl"></i> Open Shared Drive
                         </a>
-                        <button onclick="location.reload()" class="text-sm text-slate-500 hover:text-red-500 underline">Logout</button>
+                        <button onclick="location.reload()" class="text-sm text-slate-500 hover:text-red-500 underline mb-4">Logout</button>
+
+                        <!-- ADMIN PANEL (Hidden for normal users) -->
+                        <div id="admin-panel" class="hidden mt-6 pt-6 border-t-2 border-slate-100">
+                            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                                <h3 class="text-sm font-bold text-slate-800 mb-4 uppercase tracking-wider flex items-center justify-center gap-2">
+                                    <i class="fas fa-user-shield text-blue-600"></i> Admin Control Panel
+                                </h3>
+                                <form onsubmit="handleCreateUser(event)" class="space-y-3 text-left">
+                                    <div>
+                                        <label class="text-xs font-bold text-slate-500 uppercase">New Client ID</label>
+                                        <input type="text" id="new-user-id" required class="w-full px-3 py-2 text-sm rounded border border-slate-300 focus:border-blue-500 outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="text-xs font-bold text-slate-500 uppercase">New Password</label>
+                                        <input type="text" id="new-user-pass" required class="w-full px-3 py-2 text-sm rounded border border-slate-300 focus:border-blue-500 outline-none">
+                                    </div>
+                                    <button type="submit" class="w-full py-2 bg-green-600 text-white text-sm font-bold rounded hover:bg-green-700 transition-colors">
+                                        Create User Access
+                                    </button>
+                                </form>
+                                <div id="admin-msg" class="text-xs font-bold mt-2 h-4"></div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
@@ -1074,20 +1098,83 @@
             document.body.removeChild(link);
         }
 
-        // PORTAL LOGIN LOGIC (Simulated)
+        /* --- PORTAL LOGIC WITH ADMIN & LOCAL STORAGE --- */
+        
+        // 1. Initialize Users in LocalStorage if Empty
+        // We set the default admin user immediately
+        const STORE_KEY = 'portal_users_db';
+        if (!localStorage.getItem(STORE_KEY)) {
+            const defaultUsers = [
+                { id: 'Anirudha', pass: 'AU12345', isAdmin: true }
+            ];
+            localStorage.setItem(STORE_KEY, JSON.stringify(defaultUsers));
+        }
+
+        // 2. Handle Login
         function handlePortalLogin(e) {
             e.preventDefault();
-            const id = document.getElementById('portal-id').value;
-            const pass = document.getElementById('portal-pass').value;
+            const idInput = document.getElementById('portal-id').value.trim();
+            const passInput = document.getElementById('portal-pass').value.trim();
+            
+            // Fetch users from storage
+            const users = JSON.parse(localStorage.getItem(STORE_KEY)) || [];
+            
+            // Find user
+            const validUser = users.find(u => u.id === idInput && u.pass === passInput);
 
-            // Simple demo check
-            if(id && pass) {
+            if(validUser) {
+                // Hide Login, Show Content
                 document.getElementById('portal-login').classList.add('hidden');
                 document.getElementById('portal-content').classList.remove('hidden');
+                
+                // Customize Greeting
+                document.querySelector('#portal-content h2').innerText = `Welcome, ${validUser.id}`;
+                
+                // Show Admin Panel ONLY if user is Admin
+                const adminPanel = document.getElementById('admin-panel');
+                if(validUser.isAdmin) {
+                    adminPanel.classList.remove('hidden');
+                } else {
+                    adminPanel.classList.add('hidden');
+                }
             } else {
-                alert("Please enter valid credentials.");
+                alert("Invalid ID or Password. Please try again.");
             }
         }
+
+        // 3. Handle Create User (Admin Only)
+        function handleCreateUser(e) {
+            e.preventDefault();
+            const newId = document.getElementById('new-user-id').value.trim();
+            const newPass = document.getElementById('new-user-pass').value.trim();
+            const msgBox = document.getElementById('admin-msg');
+            
+            if(!newId || !newPass) return;
+
+            const users = JSON.parse(localStorage.getItem(STORE_KEY)) || [];
+            
+            // Check if user already exists
+            if(users.some(u => u.id === newId)) {
+                msgBox.className = "text-xs font-bold mt-2 h-4 text-red-600";
+                msgBox.innerText = "Error: User ID already exists.";
+                return;
+            }
+
+            // Add new user (isAdmin: false)
+            users.push({ id: newId, pass: newPass, isAdmin: false });
+            localStorage.setItem(STORE_KEY, JSON.stringify(users));
+            
+            // Success Message
+            msgBox.className = "text-xs font-bold mt-2 h-4 text-green-600";
+            msgBox.innerText = `Success: User '${newId}' created!`;
+            
+            // Reset Form
+            e.target.reset();
+            
+            // Clear message after 3 seconds
+            setTimeout(() => { msgBox.innerText = ""; }, 3000);
+        }
+
 
         /* --- Chatbot Logic (Same as before) --- */
         const chatWindow = document.getElementById('chat-window');
